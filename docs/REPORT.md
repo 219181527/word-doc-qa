@@ -170,7 +170,7 @@ Default Configuration:
 
 - Dropout: 0.1
 
-- Output size: 2 (start \& end logits)
+- Output size: 2 (start & end logits)
 
 
 
@@ -266,7 +266,7 @@ This approach is common in extractive QA systems.
 
 
 
-## 2.2 Data Pipeline (8 Marks)
+## 2.2 Data Pipeline
 
 
 
@@ -334,13 +334,13 @@ Final vocabulary size:
 
 
 
-The system generates Q\&A pairs from document content.
+The system generates Q&A pairs from document content.
 
 
 
 Total samples generated:
 
-31 Q\&A pairs
+31 Q&A pairs
 
 
 
@@ -360,7 +360,7 @@ This extremely small dataset significantly influenced model behavior.
 
 
 
-## 2.3 Training Strategy (7 Marks)
+## 2.3 Training Strategy 
 
 
 
@@ -446,7 +446,7 @@ Enable required features in Cargo.toml:
 
 
 
-Training initially appeared frozen at: \[train] Starting training…
+Training initially appeared frozen at: [train] Starting training…
 
 
 
@@ -526,7 +526,7 @@ Compared smaller model configuration to test generalization.
 
 
 
-# Section 3: Experiments and Results (50 Marks)
+# Section 3: Experiments and Results
 
 
 
@@ -534,7 +534,7 @@ Compared smaller model configuration to test generalization.
 
 
 
-## 3.1 Training Results (20 Marks)
+## 3.1 Training Results
 
 
 
@@ -576,7 +576,7 @@ Clear overfitting after epoch 12.
 
 
 
-## 3.2 Model Performance (20 Marks)
+## 3.2 Model Performance
 
 
 
@@ -676,7 +676,7 @@ Observation:
 
 
 
-# Section 4: Conclusion (15 Marks)
+# Section 4: Conclusion
 
 
 
