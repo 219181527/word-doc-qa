@@ -1,0 +1,17 @@
+# Rust
+/target/
+Cargo.lock
+
+# Checkpoints and trained models
+/checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
