@@ -124,10 +124,6 @@ Ensure you have the [Rust toolchain](https://rustup.rs/) installed.
 
 ## 📂 Project Structure
 
-
-
-## 📂 Project Structure
-
 ```text
 word-doc-qa/
 ├── src/
@@ -142,7 +138,7 @@ word-doc-qa/
 │   └── REPORT.md      # Detailed academic report
 ├── Cargo.toml         # Rust dependencies (Burn, etc.)
 └── README.md          # Project documentation
-
+```
 ---
 
 
