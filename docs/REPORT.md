@@ -1,4 +1,4 @@
-\# Project Report: Transformer-Based Question Answering System in Rust (Burn)
+# Project Report: Transformer-Based Question Answering System in Rust (Burn)
 
 
 
@@ -14,11 +14,11 @@ Repository: https://github.com/219181527/word-doc-qa
 
 
 
-\# Section 1: Introduction
+# Section 1: Introduction
 
 
 
-\## 1.1 Problem Statement and Motivation
+## 1.1 Problem Statement and Motivation
 
 
 
@@ -30,13 +30,13 @@ The motivation for this project was to:
 
 
 
-\- Implement a Transformer architecture from scratch using Rust.
+- Implement a Transformer architecture from scratch using Rust.
 
-\- Gain hands-on experience with the Burn deep learning framework.
+- Gain hands-on experience with the Burn deep learning framework.
 
-\- Understand the challenges of building NLP systems in a systems programming language.
+- Understand the challenges of building NLP systems in a systems programming language.
 
-\- Explore model training, inference, and experimentation in a low-level ML ecosystem.
+- Explore model training, inference, and experimentation in a low-level ML ecosystem.
 
 
 
@@ -48,7 +48,7 @@ Unlike using pre-trained models (e.g., BERT), this system trains a Transformer e
 
 
 
-\## 1.2 Overview of the Approach
+## 1.2 Overview of the Approach
 
 
 
@@ -56,17 +56,17 @@ The system consists of:
 
 
 
-1\. Document ingestion and preprocessing.
+1. Document ingestion and preprocessing.
 
-2\. Custom tokenization and vocabulary building.
+2. Custom tokenization and vocabulary building.
 
-3\. A 6-layer Transformer encoder architecture.
+3. A 6-layer Transformer encoder architecture.
 
-4\. A span-based prediction head (start and end token logits).
+4. A span-based prediction head (start and end token logits).
 
-5\. A training loop with validation and checkpointing.
+5. A training loop with validation and checkpointing.
 
-6\. A CLI-based inference interface.
+6. A CLI-based inference interface.
 
 
 
@@ -78,7 +78,7 @@ The architecture is implemented using the Burn framework with the NdArray backen
 
 
 
-\## 1.3 Key Design Decisions
+## 1.3 Key Design Decisions
 
 
 
@@ -86,15 +86,15 @@ Several important design decisions were made:
 
 
 
-\- Use of a Transformer encoder instead of RNN/LSTM.
+- Use of a Transformer encoder instead of RNN/LSTM.
 
-\- Span-based QA instead of generative text output.
+- Span-based QA instead of generative text output.
 
-\- Minimum 6-layer architecture (as per assignment requirement).
+- Minimum 6-layer architecture (as per assignment requirement).
 
-\- Custom tokenizer instead of external NLP libraries.
+- Custom tokenizer instead of external NLP libraries.
 
-\- CPU-based training using Burn’s NdArray backend.
+- CPU-based training using Burn’s NdArray backend.
 
 
 
@@ -106,7 +106,7 @@ A major decision was to train from scratch rather than fine-tune a pretrained mo
 
 
 
-\# Section 2: Implementation
+# Section 2: Implementation
 
 
 
@@ -114,11 +114,11 @@ A major decision was to train from scratch rather than fine-tune a pretrained mo
 
 
 
-\## 2.1 Architecture Details
+## 2.1 Architecture Details
 
 
 
-\### Model Overview
+### Model Overview
 
 
 
@@ -148,7 +148,7 @@ Input Tokens
 
 
 
-\### Layer Specifications
+### Layer Specifications
 
 
 
@@ -156,21 +156,21 @@ Default Configuration:
 
 
 
-\- Vocabulary size: 125 (after tokenization)
+- Vocabulary size: 125 (after tokenization)
 
-\- Maximum sequence length: 512
+- Maximum sequence length: 512
 
-\- d\_model: 256
+- d_model: 256
 
-\- n\_heads: 8
+- n_heads: 8
 
-\- n\_layers: 6
+- n_layers: 6
 
-\- Feed-forward dimension (d\_ff): 1024
+- Feed-forward dimension (d_ff): 1024
 
-\- Dropout: 0.1
+- Dropout: 0.1
 
-\- Output size: 2 (start \& end logits)
+- Output size: 2 (start \& end logits)
 
 
 
@@ -184,13 +184,13 @@ Alternative Small Configuration:
 
 
 
-\- d\_model: 128
+- d_model: 128
 
-\- n\_heads: 4
+- n_heads: 4
 
-\- n\_layers: 6
+- n_layers: 6
 
-\- d\_ff: 512
+- d_ff: 512
 
 
 
@@ -204,11 +204,11 @@ Total parameters:
 
 
 
-\### Key Components Explained
+### Key Components Explained
 
 
 
-\#### Multi-Head Self-Attention
+#### Multi-Head Self-Attention
 
 
 
@@ -216,7 +216,7 @@ Each encoder layer includes multi-head attention where:
 
 
 
-Attention(Q, K, V) = softmax(QKᵀ / √d\_k) V
+Attention(Q, K, V) = softmax(QKᵀ / √d_k) V
 
 
 
@@ -224,7 +224,7 @@ This allows the model to learn contextual relationships between tokens in the ca
 
 
 
-\#### Feed-Forward Network
+#### Feed-Forward Network
 
 
 
@@ -232,11 +232,11 @@ Each layer includes a position-wise feed-forward network:
 
 
 
-Linear(d\_model → d\_ff)  
+Linear(d_model → d_ff)  
 
 ReLU  
 
-Linear(d\_ff → d\_model)
+Linear(d_ff → d_model)
 
 
 
@@ -244,7 +244,7 @@ This enables non-linear transformation after attention.
 
 
 
-\#### Span Prediction Head
+#### Span Prediction Head
 
 
 
@@ -252,9 +252,9 @@ Instead of generating text, the model predicts:
 
 
 
-\- Start token index
+- Start token index
 
-\- End token index
+- End token index
 
 
 
@@ -266,11 +266,11 @@ This approach is common in extractive QA systems.
 
 
 
-\## 2.2 Data Pipeline (8 Marks)
+## 2.2 Data Pipeline (8 Marks)
 
 
 
-\### Document Processing
+### Document Processing
 
 
 
@@ -278,11 +278,11 @@ Documents are loaded from:
 
 
 
-\- data/calader\_2026.docx
+- data/calader_2026.docx
 
-\- data/calendar\_2025.docx
+- data/calendar_2025.docx
 
-\- data/calendar\_2024.docx
+- data/calendar_2024.docx
 
 
 
@@ -290,7 +290,7 @@ The system extracts raw text content from each document.
 
 
 
-Example log: \[data] Loaded 'data/calader\_2026.docx' (239 bytes)
+Example log: [data] Loaded 'data/calader_2026.docx' (239 bytes)
 
 
 
@@ -300,7 +300,7 @@ Example log: \[data] Loaded 'data/calader\_2026.docx' (239 bytes)
 
 
 
-\### Tokenization Strategy
+### Tokenization Strategy
 
 
 
@@ -308,15 +308,15 @@ A custom tokenizer was implemented:
 
 
 
-\- Lowercasing
+- Lowercasing
 
-\- Whitespace splitting
+- Whitespace splitting
 
-\- Vocabulary building from training data
+- Vocabulary building from training data
 
-\- Mapping tokens to integer IDs
+- Mapping tokens to integer IDs
 
-\- Padding to max sequence length
+- Padding to max sequence length
 
 
 
@@ -330,7 +330,7 @@ Final vocabulary size:
 
 
 
-\### Training Data Generation
+### Training Data Generation
 
 
 
@@ -346,9 +346,9 @@ Total samples generated:
 
 Split:
 
-\- 27 training samples
+- 27 training samples
 
-\- 4 validation samples
+- 4 validation samples
 
 
 
@@ -360,11 +360,11 @@ This extremely small dataset significantly influenced model behavior.
 
 
 
-\## 2.3 Training Strategy (7 Marks)
+## 2.3 Training Strategy (7 Marks)
 
 
 
-\### Hyperparameters
+### Hyperparameters
 
 
 
@@ -372,35 +372,17 @@ Default Configuration:
 
 
 
-\- Epochs: 30
+- Epochs: 30
 
-\- Batch size: 8
+- Batch size: 8
 
-\- Learning rate: 1e-4
+- Learning rate: 1e-4
 
-\- Validation split: 0.15
+- Validation split: 0.15
 
-\- Optimizer: Adam
+- Optimizer: Adam
 
-\- Backend: NdArray + Autodiff
-
-
-
----
-
-
-
-\### Optimization Strategy
-
-
-
-\- Full backpropagation through 6-layer Transformer.
-
-\- Gradients computed using Burn Autodiff.
-
-\- Model updated using Adam optimizer.
-
-\- Checkpoints saved every 5 epochs.
+- Backend: NdArray + Autodiff
 
 
 
@@ -408,7 +390,25 @@ Default Configuration:
 
 
 
-\### Challenges Faced and Solutions
+### Optimization Strategy
+
+
+
+- Full backpropagation through 6-layer Transformer.
+
+- Gradients computed using Burn Autodiff.
+
+- Model updated using Adam optimizer.
+
+- Checkpoints saved every 5 epochs.
+
+
+
+---
+
+
+
+### Challenges Faced and Solutions
 
 
 
@@ -416,7 +416,7 @@ This project involved extensive debugging and trial-and-error:
 
 
 
-\#### 1. Backend Feature Errors
+#### 1. Backend Feature Errors
 
 
 
@@ -430,11 +430,11 @@ Solution:
 
 Enable required features in Cargo.toml:
 
-\- ndarray
+- ndarray
 
-\- autodiff
+- autodiff
 
-\- dataset
+- dataset
 
 
 
@@ -442,7 +442,7 @@ Enable required features in Cargo.toml:
 
 
 
-\#### 2. Debug Mode Training Freeze
+#### 2. Debug Mode Training Freeze
 
 
 
@@ -474,7 +474,7 @@ This reduced execution time dramatically.
 
 
 
-\#### 3. GitHub Authentication Issues
+#### 3. GitHub Authentication Issues
 
 
 
@@ -484,11 +484,11 @@ Encountered 403 errors due to multiple GitHub accounts.
 
 Solution:
 
-\- Generated Personal Access Token
+- Generated Personal Access Token
 
-\- Cleared Windows Credential Manager
+- Cleared Windows Credential Manager
 
-\- Re-authenticated as correct account
+- Re-authenticated as correct account
 
 
 
@@ -496,7 +496,7 @@ Solution:
 
 
 
-\#### 4. Overfitting
+#### 4. Overfitting
 
 
 
@@ -504,9 +504,9 @@ Model reached:
 
 
 
-\- 100% training accuracy
+- 100% training accuracy
 
-\- 75% validation accuracy
+- 75% validation accuracy
 
 
 
@@ -526,7 +526,7 @@ Compared smaller model configuration to test generalization.
 
 
 
-\# Section 3: Experiments and Results (50 Marks)
+# Section 3: Experiments and Results (50 Marks)
 
 
 
@@ -534,7 +534,7 @@ Compared smaller model configuration to test generalization.
 
 
 
-\## 3.1 Training Results (20 Marks)
+## 3.1 Training Results (20 Marks)
 
 
 
@@ -542,13 +542,13 @@ Final Training Summary:
 
 
 
-\- Total parameters: 6.9M
+- Total parameters: 6.9M
 
-\- Total training time: 2928.4 seconds (~49 minutes)
+- Total training time: 2928.4 seconds (~49 minutes)
 
-\- CPU-based training
+- CPU-based training
 
-\- Backend: NdArray
+- Backend: NdArray
 
 
 
@@ -576,7 +576,7 @@ Clear overfitting after epoch 12.
 
 
 
-\## 3.2 Model Performance (20 Marks)
+## 3.2 Model Performance (20 Marks)
 
 
 
@@ -584,39 +584,21 @@ Example Questions:
 
 
 
-1\. Q: What is the month and date of the 2026 End of Year Graduation Ceremony?  
+1. Q: What is the month and date of the 2026 End of Year Graduation Ceremony?  
 
 &nbsp;  A: The 2026 End of Year Graduation Ceremony is held in December 2026.
 
 
 
-2\. Q: When does Term 1 start in 2026?  
+2. Q: When does Term 1 start in 2026?  
 
 &nbsp;  A: 23 March: START OF TERM 2 (Incorrect)
 
 
 
-3\. Q: How many times did the HDC hold meetings in 2024?  
+3. Q: How many times did the HDC hold meetings in 2024?  
 
-&nbsp;  A: \[Correct if matches training sample]
-
-
-
----
-
-
-
-\### What Works Well
-
-
-
-\- Exact training-style questions are answered correctly.
-
-\- Span prediction is stable.
-
-\- Model loads and performs inference reliably.
-
-\- Architecture is fully functional.
+&nbsp;  A: [Correct if matches training sample]
 
 
 
@@ -624,15 +606,33 @@ Example Questions:
 
 
 
-\### Failure Cases
+### What Works Well
 
 
 
-\- Rephrased questions fail.
+- Exact training-style questions are answered correctly.
 
-\- Model confuses similar events (Term 1 vs Term 2).
+- Span prediction is stable.
 
-\- Generalization limited due to small dataset.
+- Model loads and performs inference reliably.
+
+- Architecture is fully functional.
+
+
+
+---
+
+
+
+### Failure Cases
+
+
+
+- Rephrased questions fail.
+
+- Model confuses similar events (Term 1 vs Term 2).
+
+- Generalization limited due to small dataset.
 
 
 
@@ -646,7 +646,7 @@ Dataset size too small for 6.9M parameter model.
 
 
 
-\## 3.3 Configuration Comparison
+## 3.3 Configuration Comparison
 
 
 
@@ -664,35 +664,11 @@ Observation:
 
 
 
-\- Default model memorizes training data faster.
+- Default model memorizes training data faster.
 
-\- Small model generalizes slightly better.
+- Small model generalizes slightly better.
 
-\- Both models overfit due to dataset size.
-
-
-
----
-
-
-
-\# Section 4: Conclusion (15 Marks)
-
-
-
-\## What I Learned
-
-
-
-\- How Transformer architectures operate internally.
-
-\- How attention mechanisms are implemented.
-
-\- How training loops work in Rust.
-
-\- How feature flags affect Burn backend configuration.
-
-\- How overfitting manifests in small datasets.
+- Both models overfit due to dataset size.
 
 
 
@@ -700,19 +676,43 @@ Observation:
 
 
 
-\## Challenges Encountered
+# Section 4: Conclusion (15 Marks)
 
 
 
-\- Backend configuration errors.
+## What I Learned
 
-\- Autodiff feature gating issues.
 
-\- Slow debug-mode training.
 
-\- Git authentication conflicts.
+- How Transformer architectures operate internally.
 
-\- Span prediction alignment.
+- How attention mechanisms are implemented.
+
+- How training loops work in Rust.
+
+- How feature flags affect Burn backend configuration.
+
+- How overfitting manifests in small datasets.
+
+
+
+---
+
+
+
+## Challenges Encountered
+
+
+
+- Backend configuration errors.
+
+- Autodiff feature gating issues.
+
+- Slow debug-mode training.
+
+- Git authentication conflicts.
+
+- Span prediction alignment.
 
 
 
@@ -724,39 +724,19 @@ Each issue required debugging, documentation review, and iterative fixes.
 
 
 
-\## Potential Improvements
+## Potential Improvements
 
 
 
-\- Increase training dataset size.
+- Increase training dataset size.
 
-\- Use pre-trained embeddings.
+- Use pre-trained embeddings.
 
-\- Add better tokenization (subword/BPE).
+- Add better tokenization (subword/BPE).
 
-\- Early stopping based on validation loss.
+- Early stopping based on validation loss.
 
-\- GPU backend support.
-
-
-
----
-
-
-
-\## Future Work
-
-
-
-\- Replace extractive QA with generative QA.
-
-\- Add web interface.
-
-\- Integrate vector database retrieval.
-
-\- Deploy as a REST API.
-
-\- Fine-tune a pretrained model for comparison.
+- GPU backend support.
 
 
 
@@ -764,7 +744,27 @@ Each issue required debugging, documentation review, and iterative fixes.
 
 
 
-\# Final Reflection
+## Future Work
+
+
+
+- Replace extractive QA with generative QA.
+
+- Add web interface.
+
+- Integrate vector database retrieval.
+
+- Deploy as a REST API.
+
+- Fine-tune a pretrained model for comparison.
+
+
+
+---
+
+
+
+# Final Reflection
 
 
 
