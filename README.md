@@ -108,7 +108,7 @@ Ensure you have the [Rust toolchain](https://rustup.rs/) installed.
 
 ### 2. Ask a Specific Question
 
-`cargo run --release -- ask "When does Term 1 start in 2026?"`
+`cargo run --release -- ask "What is the month and date of the 2026 End of Year Graduation Ceremony?"`
 
 
 
